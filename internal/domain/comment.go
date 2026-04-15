@@ -1,18 +1,19 @@
+// Package domain defines the core domain models used by the application.
 package domain
 
-import (
-	"time"
-)
+import "time"
 
+// Comment represents a comment in the domain model.
 type Comment struct {
-	ID        int       `json:"id"` // Пример: для API
-	Content   string    `json:"content"`
-	ParentID  *int      `json:"parent_id,omitempty"` // Указатель, чтобы можно было отличить 0 ID от отсутствия родителя
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at,omitempty"` // omitempty - поле не будет сериализовано, если оно zero value
+	ID        int
+	Content   string
+	ParentID  *int
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
+// CommentNode represents a comment with nested child comments.
 type CommentNode struct {
-	Comment  Comment       // Сам комментарий
-	Children []CommentNode // Слайс его прямых потомков (рекурсивно)
+	Comment  Comment
+	Children []CommentNode
 }
